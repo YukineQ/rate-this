@@ -22,3 +22,4 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </InputWrapper>
         )
     })
+Input.displayName = 'Input'
