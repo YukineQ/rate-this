@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from '@/components/Elements/Button';
-import { Form } from '@/components/Elements/Form';
+import { Form } from '@/components/Form';
 import { Input } from '@/components/Elements/Input';
 import * as yup from 'yup'
 
