@@ -1,37 +1,31 @@
 "use client"
 
-import { Button } from '@/components/Elements/Button';
-import { Form } from '@/components/Form';
-import { Input } from '@/components/Elements/Input';
 import * as yup from 'yup'
+
+import { Form } from "@/components/Form";
+import { Input } from '@/components/Elements/Input';
+import { Button } from '@/components/Elements/Button';
 import { Link } from '@/components/Elements/Link';
 
 const schema = yup.object({
-    username: yup.string().min(3).required(),
     email: yup.string().email().required(),
-    password: yup.string().min(6),
+    password: yup.string().required(),
 })
 
-type SignUpValues = {
-    username: string;
+type SignInValues = {
     email: string;
     password: string;
 }
 
-export default function SignUp() {
+export default function SignIn() {
     return (
-        <div>
-            <Form<SignUpValues, typeof schema>
-                onSubmit={() => { }}
+        <>
+            <Form<SignInValues, typeof schema>
                 schema={schema}
+                onSubmit={() => { }}
             >
                 {({ register, formState }) => (
                     <>
-                        <Input
-                            placeholder='example'
-                            {...register('username')}
-                            error={formState.errors['username']}
-                        />
                         <Input
                             type='email'
                             placeholder='name@example.com'
@@ -45,17 +39,17 @@ export default function SignUp() {
                             error={formState.errors['password']}
                         />
                         <div className='pt-2'>
-                            <Button type='submit' className='w-full'>Sign up</Button>
+                            <Button type='submit' className='w-full'>Sign in</Button>
                         </div>
                     </>
                 )}
             </Form>
             <p className='text-sm text-gray-500 text-center pt-2'>
-                Already have an account?
-                <Link href='../sign-in' className='pl-1'>
-                    Sign in
+                Create new account?
+                <Link href='../sign-up' className='pl-1'>
+                    Sign up
                 </Link>
             </p>
-        </div>
+        </>
     )
 }

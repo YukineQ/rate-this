@@ -2,7 +2,6 @@ import { Button } from '@/components/Elements/Button'
 import { LuCommand } from 'react-icons/lu'
 import { AiOutlineGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
-import { Input } from '@/components/Elements/Input'
 
 export default async function AuthLayout({
     children
