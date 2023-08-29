@@ -17,7 +17,7 @@ export const InputWrapper = (props: InputWrapperProps) => {
         <div>
             <label className={twMerge('block text-sm font-medium leading-none', className)}>
                 {label}
-                <div className='my-1'>{children}</div>
+                <div className='my-1.5'>{children}</div>
             </label>
             {description && (
                 <div role='contentinfo' aria-label={description} className='text-xs text-gray-500'>

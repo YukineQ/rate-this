@@ -1,8 +1,7 @@
-import { Button } from '@/components/Elements/Button'
 import { LuCommand } from 'react-icons/lu'
-import { AiOutlineGithub } from 'react-icons/ai'
-import { FcGoogle } from 'react-icons/fc'
 
+import { SocialAuthButtons } from '@/features/auth/components'
+//TODO: maybe move to features/auth folder?
 export default async function AuthLayout({
     children
 }: {
@@ -29,11 +28,13 @@ export default async function AuthLayout({
                             </div>
                         </div>
                         <div className='h-full flex items-center justify-center'>
-                            <div className='inline-flex absolute right-8 top-8'>Localization</div>
+                            <div className='inline-flex absolute right-8 top-8'>
+                                Localization
+                            </div>
                             <div className='w-full h-full flex items-center justify-center'>
-                                <div className='flex flex-col gap-6 max-w-[350px] w-full'>
+                                <div className='flex flex-col gap-5 max-w-[350px] w-full'>
                                     <div>
-                                        <h1 className='text-4xl font-semibold trackin-tight'>Hi there</h1>
+                                        <h1 className='text-4xl font-bold trackin-tight'>Hi there</h1>
                                         <p className='text-gray-500 text-sm'>Welcome to Rate this. Community Dashboard</p>
                                     </div>
                                     <section className='space-y-2'>
@@ -47,28 +48,13 @@ export default async function AuthLayout({
                                             <span className='bg-white text-gray-500 px-2 uppercase text-xs font-medium'>Or continue with</span>
                                         </div>
                                     </div>
-                                    <div className='space-y-2'>
-                                        <Button
-                                            className='w-full'
-                                            variant='outline'
-                                            startIcon={<FcGoogle size={20} />}
-                                        >
-                                            Google
-                                        </Button>
-                                        <Button
-                                            className='w-full'
-                                            variant='outline'
-                                            startIcon={<AiOutlineGithub size={20} />}
-                                        >
-                                            GitHub
-                                        </Button>
-                                    </div>
+                                    <SocialAuthButtons />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
