@@ -12,7 +12,9 @@
     "build-storybook": "storybook build",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "postinstall": "prisma generate"
+
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
