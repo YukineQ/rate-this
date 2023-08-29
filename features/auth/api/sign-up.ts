@@ -1,7 +1,8 @@
 import axios, { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
-
 import { toast } from "react-hot-toast";
+
+import { User } from "@prisma/client";
 
 export type SignUpCredendialsDTO = {
     username: string;
@@ -11,7 +12,7 @@ export type SignUpCredendialsDTO = {
 
 export const signUpWithCredentials = (
     data: SignUpCredendialsDTO
-) => {
+): Promise<User> => {
     return axios.post('/api/register', data)
 }
 
