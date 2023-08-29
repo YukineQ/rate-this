@@ -2,8 +2,6 @@ import axios, { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-// import { User } from "@prisma/client";
-
 export type SignUpCredendialsDTO = {
     username: string;
     email: string;
