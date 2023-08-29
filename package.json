@@ -13,7 +13,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --ci",
-    "postinstall": "prisma generate && prisma db push"
+    "postinstall": "npx prisma generate && npx prisma db push"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
