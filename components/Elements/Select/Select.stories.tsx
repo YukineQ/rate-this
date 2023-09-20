@@ -16,20 +16,3 @@ const meta: Meta = {
 
 export default meta
 type Story = StoryObj<typeof Select>;
-
-export const Default: Story = {
-    args: {
-        options: [
-            {
-                label: 'English',
-                value: 'english',
-                imageUrl: '/use.png',
-            },
-            {
-                label: 'Russian',
-                value: 'russian',
-                imageUrl: '/russia.png',
-            }
-        ],
-    }
-}
