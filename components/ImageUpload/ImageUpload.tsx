@@ -13,12 +13,23 @@ export const ImageUpload = ({
     onChange,
     value,
 }: ImageUploadProps) => {
+    const [isMounted, setIsMounted] = useState(false)
 
+    useEffect(() => {
+        setIsMounted(true)
+
+        return () => {
+            setIsMounted(false)
+        }
+    }, [])
 
     const onUpload = (result: any) => {
         onChange(result.info.secure_url)
     }
 
+    if (!isMounted) {
+        return null
+    }
 
     return (
         <div>

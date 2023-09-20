@@ -7,7 +7,7 @@ import bcrypt from "bcrypt"
 
 import prismadb from "@/lib/prismadb";
 
-export const authOptions: AuthOptions = ({
+const authOptions: AuthOptions = ({
     adapter: PrismaAdapter(prismadb),
     providers: [
         GitHubProvider({
