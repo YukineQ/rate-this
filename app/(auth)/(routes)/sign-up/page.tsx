@@ -1,5 +1,11 @@
-import { SignUp } from '@/features/auth/routes';
+"use client"
+
+import { useRouter } from 'next/navigation'
+
+import { SignUpForm } from '@/features/auth/components';
 
 export default function SignUpPage() {
-    return <SignUp />
+    const router = useRouter()
+
+    return <SignUpForm onSucces={() => { router.push('/sign-in') }} />
 }

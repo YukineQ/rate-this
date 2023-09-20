@@ -1,7 +1,11 @@
 "use client"
 
-import { SignIn } from '@/features/auth/routes';
+import { useRouter } from 'next/navigation'
+
+import { SignInForm } from "@/features/auth/components"
 
 export default function SignInPage() {
-    return <SignIn />
+    const router = useRouter()
+
+    return <SignInForm onSuccess={() => router.push('/')} />
 }

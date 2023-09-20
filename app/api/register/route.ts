@@ -8,7 +8,7 @@ export async function POST(
     const body = await request.json()
     const {
         email,
-        username,
+        name,
         password
     } = body
 
@@ -27,7 +27,7 @@ export async function POST(
     const user = await prismadb.user.create({
         data: {
             email,
-            username,
+            name,
             hashedPassword,
         }
     })

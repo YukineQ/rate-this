@@ -1,8 +1,10 @@
+"use client"
+
 import { LuCommand } from 'react-icons/lu'
 
 import { SocialAuthButtons } from '@/features/auth/components'
-//TODO: maybe move to features/auth folder?
-export default async function AuthLayout({
+
+export default function AuthLayout({
     children
 }: {
     children: React.ReactNode

@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 const variants = {
     default: 'bg-zinc-950 text-white hover:bg-zinc-800 shadow',
     danger: 'bg-red-500 text-white hover:bg-red-500/90 shadow-sm',
-    outline: 'border bg-transparent shadow-sm hover:bg-zinc-50',
+    outline: 'border bg-white shadow-sm hover:bg-zinc-50',
     ghost: 'hover:bg-zinc-50 text-zinc-700',
 }
 
@@ -45,16 +45,21 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 ref={ref}
                 type={type}
                 className={twMerge(
-                    'flex justify-center items-center font-medium transition rounded-md text-sm disabled:opacity-70 disabled:pointer-events-none',
+                    'inline-flex w-full justify-center items-center font-medium transition rounded-md text-sm disabled:opacity-70 disabled:pointer-events-none whitespace-nowrap',
                     sizes[size],
                     variants[variant],
                     className
                 )}
                 {...props}
             >
-                {isLoading && ""}
-                {!isLoading && startIcon}
-                <span className='mx-1.5'>{props.children}</span>{!isLoading && endIcon}
+                <div>
+                    {isLoading && ""}
+                    {!isLoading && startIcon}
+                </div>
+                {size != 'icon' && (
+                    <span className='mx-1.5'>{props.children}</span>
+                )}
+                {!isLoading && endIcon}
             </button>
         )
     }

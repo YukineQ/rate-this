@@ -1,11 +1,11 @@
 import axios, { AxiosError } from "axios";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
 
 import { User } from "@prisma/client";
+import { useMutation } from "@tanstack/react-query"
+import { toast } from "react-hot-toast";
 
 export type SignUpCredendialsDTO = {
-    username: string;
+    name: string;
     email: string;
     password: string;
 }
@@ -19,10 +19,12 @@ export const signUpWithCredentials = (
 export const useSignUp = () => {
     return useMutation({
         mutationFn: signUpWithCredentials,
+        onSuccess: () => {
+            toast.success('Account created.')
+        },
         onError: (error: AxiosError) => {
             const message = error.response?.data || error.message
             toast.error(String(message))
         },
     })
 }
-

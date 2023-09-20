@@ -1,5 +1,3 @@
-"use client"
-
 import React from 'react'
 import * as yup from 'yup'
 
@@ -7,25 +5,25 @@ import { Form } from '@/components/Form';
 import { Input } from '@/components/Elements/Input';
 import { Button } from '@/components/Elements/Button';
 import { Link } from '@/components/Elements/Link';
-import { useSignUp } from '../api/sign-up';
+import { useSignUp } from "../api/sign-up";
 
 const schema = yup.object({
-    username: yup.string().min(3).required(),
+    name: yup.string().min(3).required(),
     email: yup.string().email().required(),
     password: yup.string().min(6),
 })
 
 type SignUpValues = {
-    username: string;
+    name: string;
     email: string;
     password: string;
 }
 
 type SignUpProps = {
-    onSucces: () => void;
+    onSuccess: () => void;
 }
 
-export const SignUpForm = ({ onSucces }: SignUpProps) => {
+export const SignUpForm = ({ onSuccess }: SignUpProps) => {
     const signUp = useSignUp()
 
     return (
@@ -33,7 +31,7 @@ export const SignUpForm = ({ onSucces }: SignUpProps) => {
             <Form<SignUpValues, typeof schema>
                 onSubmit={async (values) => {
                     await signUp.mutateAsync(values)
-                    onSucces()
+                    onSuccess()
                 }}
                 schema={schema}
             >
@@ -41,8 +39,8 @@ export const SignUpForm = ({ onSucces }: SignUpProps) => {
                     <>
                         <Input
                             placeholder='example'
-                            {...register('username')}
-                            error={formState.errors['username']}
+                            {...register('name')}
+                            error={formState.errors['name']}
                         />
                         <Input
                             type='email'
@@ -57,14 +55,14 @@ export const SignUpForm = ({ onSucces }: SignUpProps) => {
                             error={formState.errors['password']}
                         />
                         <div className='pt-2'>
-                            <Button type='submit' className='w-full'>Sign up</Button>
+                            <Button type='submit'>Sign up</Button>
                         </div>
                     </>
                 )}
             </Form>
             <p className='inline-flex w-full justify-center text-sm text-gray-500 pt-2'>
                 Already have an account?
-                <Link href='../sign-in' className='px-1'>
+                <Link variant='underline' href='../sign-in' className='px-1'>
                     Sign in
                 </Link>
             </p>

@@ -2,12 +2,12 @@ import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcrypt"
 
 import prismadb from "@/lib/prismadb";
 
-const authOptions: AuthOptions = ({
+export const authOptions: AuthOptions = ({
     adapter: PrismaAdapter(prismadb),
     providers: [
         GitHubProvider({
@@ -35,7 +35,6 @@ const authOptions: AuthOptions = ({
                         email: credentials.email
                     }
                 })
-
                 if (!user || !user?.hashedPassword) {
                     throw new Error('Invalid credentials')
                 }
@@ -48,7 +47,6 @@ const authOptions: AuthOptions = ({
                 if (!isCorrectPassword) {
                     throw new Error('Invalid credentials')
                 }
-
                 return user
             },
         })
@@ -57,8 +55,14 @@ const authOptions: AuthOptions = ({
     session: {
         strategy: 'jwt',
     },
-    secret: process.env.NEXTAUTH_SECRET,
-})
+    jwt: {
+        secret: process.env.NEXTAUTH_SECRET
+    },
+    secret: process.env.NEXT_PUBLIC_SECRET,
+    pages: {
+        signIn: '/sign-in',
+    },
+});
 
 const handler = NextAuth(authOptions)
 

@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useMemo } from 'react'
 import { signIn } from 'next-auth/react'
 import { FcGoogle } from 'react-icons/fc'
@@ -26,7 +24,6 @@ export const SocialAuthButtons = () => {
             {authVariants.map(({ label, startIcon, onClick }, index) => (
                 <Button
                     key={label + index}
-                    className='w-full'
                     variant='outline'
                     startIcon={startIcon}
                     onClick={onClick}

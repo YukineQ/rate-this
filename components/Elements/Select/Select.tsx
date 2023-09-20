@@ -1,31 +1,25 @@
 import React from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { BsChevronDown, BsChevronUp, BsCheckLg } from 'react-icons/bs'
-import { Avatar } from '../Avatar';
-
-type Option = {
-    label: React.ReactNode;
-    value: any;
-    imageUrl?: string | undefined;
-}
+import { BsChevronDown, BsChevronUp } from 'react-icons/bs'
+import { InputWrapper, InputWrapperPassThroughProps } from '../Input';
 
 type SelectProps = {
-    options: Option[];
-    defaultValue?: Option;
-}
-
+    options: string[];
+    defaultValue?: string;
+} & InputWrapperPassThroughProps
+//TODO: form
 export const Select = (props: SelectProps) => {
-    const { options, defaultValue } = props
+    const { options, defaultValue, label, description, error } = props
 
-    const [selected, setSelected] = React.useState<Option>(defaultValue || options[0])
+    const [selected, setSelected] = React.useState(defaultValue || options[0])
 
     return (
-        <>
+        <InputWrapper label={label} description={description} error={error}>
             <Listbox value={selected} onChange={setSelected}>
                 <div className='relative mt-1 w-[200px]'>
                     <Listbox.Button className='w-full relative hover:bg-zinc-50 rounded-md transition cursor-pointer border shadow-sm shadow-slate-200'>
                         <div className='flex justify-between items-center px-4 py-2 h-[33px]'>
-                            <span className='text-sm font-medium'>{selected.label}</span>
+                            <span className='text-sm font-medium'>{selected}</span>
                             <div>
                                 <BsChevronUp size={8} />
                                 <BsChevronDown size={8} />
@@ -38,24 +32,18 @@ export const Select = (props: SelectProps) => {
                         leaveFrom='opacity-100'
                         leaveTo='opacity-0'
                     >
-                        <Listbox.Options className="absolute w-full mt-1 max-h-60 overflow-auto rounded-md bg-transparent py-1 text-base ring-1 focus:outline-none sm:text-sm border shadow-sm shadow-slate-200 ring-zinc-50">
+                        <Listbox.Options className="absolute w-full mt-1 max-h-60 overflow-auto rounded-md bg-transparent py-1 text-base ring-1 focus:outline-none sm:text-sm border shadow-sm shadow-slate-200 ring-zinc-50 bg-white">
                             <div className='flex flex-col w-full h-full px-1'>
                                 {options.map((option, idx) => (
-                                    // active
                                     <Listbox.Option
-                                        className="flex py-1 px-2.5 cursor-pointer rounded transition"
+                                        className="flex py-1 px-2.5 cursor-pointer rounded transition hover:bg-zinc-50"
                                         key={idx}
                                         value={option}
                                     >
                                         <div className='flex w-full py-[1px] gap-2.5 items-center'>
-                                            <>
-                                                {option.imageUrl && (
-                                                    <Avatar size='xs' url={option.imageUrl} />
-                                                )}
-                                                <span className='text-sm'>
-                                                    {option.label}
-                                                </span>
-                                            </>
+                                            <span className='text-sm'>
+                                                {option}
+                                            </span>
                                         </div>
                                     </Listbox.Option>
                                 ))}
@@ -64,6 +52,6 @@ export const Select = (props: SelectProps) => {
                     </Transition>
                 </div>
             </Listbox>
-        </>
+        </InputWrapper>
     )
 }

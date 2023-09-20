@@ -6,7 +6,7 @@ const FALLBACK_AVATAR_URL = '/fallback_avatar.jpg'
 const FALLBACK_AVATAR_ALT_TEXT = 'user avatar'
 
 const sizes = {
-    xs: 'h-5 w-5',
+    xs: 'h-7 w-7',
     sm: 'h-8 w-8',
     md: 'h-10 w-10',
     lg: 'h-12 w-12'
@@ -36,7 +36,7 @@ export const Avatar = ({
     return (
         <div
             className={twMerge(
-                'overflow-hidden',
+                'overflow-hidden ring-1 ring-gray-300 hover:bg-gray-300 cursor-pointer hover:opacity-70 transition',
                 sizes[size],
                 variants[variant],
                 className,

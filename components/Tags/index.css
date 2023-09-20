@@ -1,0 +1,19 @@
+.tagify, .tagify--noTags, .tagify--empty {
+    @apply 
+        h-9 
+        w-full 
+        rounded-md 
+        border 
+        text-sm 
+        shadow-sm 
+        shadow-slate-200 
+        transition 
+        placeholder:font-normal 
+        text-black
+        disabled:text-opacity-50
+        border-slate-200;
+}
+
+.tagify--focus {
+    @apply outline-none ring-1 ring-slate-400 border-none;
+}
