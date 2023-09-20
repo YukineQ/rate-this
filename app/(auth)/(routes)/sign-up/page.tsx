@@ -7,5 +7,5 @@ import { SignUpForm } from '@/features/auth/components';
 export default function SignUpPage() {
     const router = useRouter()
 
-    return <SignUpForm onSucces={() => { router.push('/sign-in') }} />
+    return <SignUpForm onSuccess={() => { router.push('/sign-in') }} />
 }
