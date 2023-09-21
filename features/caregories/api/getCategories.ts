@@ -9,9 +9,6 @@ export const getCategories = (): Promise<Category[]> => {
 export const useCategories = () => {
     return useSuspenseQuery({
         queryKey: ['categories'],
-        queryFn: async () => {
-            const data = await axios.get('/api/categories')
-            return data
-        },
+        queryFn: async () => getCategories(),
     })
 }
