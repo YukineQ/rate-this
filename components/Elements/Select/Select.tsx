@@ -3,15 +3,21 @@ import { Listbox, Transition } from '@headlessui/react'
 import { BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import { InputWrapper, InputWrapperPassThroughProps } from '../Input';
 
+type Option = {
+    label: React.ReactNode;
+    value: string | number;
+}
+
 type SelectProps = {
-    options: string[];
-    defaultValue?: string;
+    options: Option[];
+    defaultValue?: Option;
+    placeholder?: string;
 } & InputWrapperPassThroughProps
-//TODO: form
+
 export const Select = (props: SelectProps) => {
     const { options, defaultValue, label, description, error } = props
 
-    const [selected, setSelected] = React.useState(defaultValue || options[0])
+    const [selected, setSelected] = React.useState<Option>(defaultValue || options[0])
 
     return (
         <InputWrapper label={label} description={description} error={error}>
@@ -19,7 +25,7 @@ export const Select = (props: SelectProps) => {
                 <div className='relative mt-1 w-[200px]'>
                     <Listbox.Button className='w-full relative hover:bg-zinc-50 rounded-md transition cursor-pointer border shadow-sm shadow-slate-200'>
                         <div className='flex justify-between items-center px-4 py-2 h-[33px]'>
-                            <span className='text-sm font-medium'>{selected}</span>
+                            <span className='text-sm font-medium'>{selected.label}</span>
                             <div>
                                 <BsChevronUp size={8} />
                                 <BsChevronDown size={8} />
@@ -42,7 +48,7 @@ export const Select = (props: SelectProps) => {
                                     >
                                         <div className='flex w-full py-[1px] gap-2.5 items-center'>
                                             <span className='text-sm'>
-                                                {option}
+                                                {option.label}
                                             </span>
                                         </div>
                                     </Listbox.Option>

@@ -15,6 +15,8 @@ import React from 'react'
 import { Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import Tags from '@/components/Tags/Tags'
+import { useCategories } from '@/features/caregories'
+
 
 const schema = yup.object({
     title: yup.string().min(10).required(),
@@ -36,6 +38,8 @@ type ReviewData = {
 
 export default function NewReview() {
     const rate = Array.from({ length: 10 }, (_, i) => i + 1)
+    const categoriesQuery = useCategories()
+    console.log(categoriesQuery.data)
 
     return (
         <>
@@ -85,11 +89,16 @@ export default function NewReview() {
                                     />
                                 )}
                             />
-                            <Select
-                                label='Category'
-                                description='Select category of reviewed creation.'
-                                options={['movie', 'cartoon']}
-                            />
+                            {categoriesQuery.data && (
+                                <Select
+                                    label='Category'
+                                    description='Select category of reviewed creation.'
+                                    options={categoriesQuery.data.map((category) => ({
+                                        label: category.name,
+                                        value: category.id,
+                                    }))}
+                                />
+                            )}
                             <Controller
                                 control={control}
                                 name='images'
@@ -122,10 +131,9 @@ export default function NewReview() {
                                 control={control}
                                 name='tags'
                                 render={({ field }) => (
-                                    <Tags onAdd={(e) => field.onChange(e.detail.tagify.value)}/>
+                                    <Tags onAdd={(e) => field.onChange(e.detail.tagify.value)} />
                                 )}
                             />
-
                             <Button type='submit'>Post</Button>
                         </div>
                     )}

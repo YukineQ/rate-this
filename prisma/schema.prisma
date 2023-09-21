@@ -74,8 +74,25 @@ model Review {
   category   Category @relation(fields: [categoryId], references: [id])
 
   tags ReviewTags[]
+  images Image[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([categoryId])
+}
+
+model Image {
+  id  String @id @default(cuid())
+  url String
+
+  reviewId String
+  review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([reviewId])
 }
 
 model Category {

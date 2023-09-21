@@ -9,15 +9,17 @@ import { Avatar } from "@/components/Elements/Avatar"
 import useUser from "@/lib/currentUser"
 import { SkeletonCircle, SkeletonLoader } from "@/components/Elements/Skeleton"
 import { Dialog, Menu, Transition } from "@headlessui/react"
+import { Spinner } from "@/components/Elements/Spinner"
+
 // TODO: refactor
 const Profile = () => {
     const userQuery = useUser()
 
     if (userQuery.isLoading) {
         return (
-            <SkeletonLoader>
-                <SkeletonCircle size={28} />
-            </SkeletonLoader>
+            <div className="py-2 px-1.5">
+                <Spinner size="xs" />
+            </div>
         )
     }
 
@@ -179,7 +181,7 @@ export default function MainLayout({
     return (
         <div className="h-full flex flex-col">
             <Header />
-            <main className="container max-w-6xl mx-auto md:py-10 px-4 mt-2">
+            <main className="container max-w-6xl mx-auto md:py-10 px-4 mt-2 flex-1">
                 {children}
             </main>
         </div>

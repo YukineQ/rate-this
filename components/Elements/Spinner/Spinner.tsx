@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 const sizes = {
     'xs': 'h-4 w-4',
     'sm': 'h-8 m-8',
+    'md': 'h-10 w-10'
 }
 
 export type SpinnerProps = {
@@ -14,7 +15,7 @@ export const Spinner = ({ size = 'sm', className }: SpinnerProps) => {
     return (
         <div role="status">
             <svg
-                className={twMerge("text-gray-200 animate-spin dark:text-gray-600 fill-blue-600",
+                className={twMerge("text-gray-200 animate-spin dark:text-gray-600 fill-gray-600",
                     sizes[size],
                     className
                 )}
