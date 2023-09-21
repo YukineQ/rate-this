@@ -11,7 +11,7 @@ import { Form } from '@/components/Form'
 import { ImageUpload } from '@/components/ImageUpload'
 import { MDXEditor } from '@/components/MDXEditor'
 import { FaTrashCan } from 'react-icons/fa6'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import Tags from '@/components/Tags/Tags'
@@ -19,6 +19,7 @@ import { useCategories } from '@/features/caregories'
 import { Review } from '@prisma/client'
 import axios from 'axios'
 import { useMutation } from '@tanstack/react-query'
+import { Spinner } from '@/components/Elements/Spinner'
 
 
 const schema = yup.object({
@@ -55,7 +56,7 @@ export default function NewReview() {
     const createReview = useCreateReview()
 
     return (
-        <>
+        <Suspense fallback={<Spinner size="md" />}>
             <PageHeader>
                 <PageHeaderHeading>New Review</PageHeaderHeading>
                 <PageHeaderDescription>
@@ -173,6 +174,6 @@ export default function NewReview() {
                     )}
                 </Form>
             </div>
-        </>
+        </Suspense>
     )
 }
