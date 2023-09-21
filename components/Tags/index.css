@@ -1,6 +1,7 @@
 .tagify, .tagify--noTags, .tagify--empty {
     @apply 
         h-9 
+        p-0 m-0
         w-full 
         rounded-md 
         border 
@@ -16,4 +17,8 @@
 
 .tagify--focus {
     @apply outline-none ring-1 ring-slate-400 border-none;
+}
+
+.tags-input {
+    @apply p-0;
 }

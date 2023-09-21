@@ -20,7 +20,7 @@ export const Select = (props: SelectProps) => {
     const [selected, setSelected] = React.useState<Option>(defaultValue || options[0])
 
     return (
-        <InputWrapper label={label} description={description} error={error}>
+        <InputWrapper label={label} description={description} error={error} isNative={false}>
             <Listbox value={selected} onChange={setSelected}>
                 <div className='relative mt-1 w-[200px]'>
                     <Listbox.Button className='w-full relative hover:bg-zinc-50 rounded-md transition cursor-pointer border shadow-sm shadow-slate-200'>
