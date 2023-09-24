@@ -26,7 +26,7 @@ export default function AuthLayout({
                                     <blockquote>
                                         <p className='text-md text-white'>
                                             “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.“
-                                        </p>
+                                        </p> 
                                     </blockquote>
                                 </div>
                             </div>
