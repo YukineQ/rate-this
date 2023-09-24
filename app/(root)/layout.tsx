@@ -154,27 +154,27 @@ type SideNavigationItem = {
 }
 
 const NavItems = () => {
-    const { theme, setTheme } = useTheme()
     const router = useRouter()
     const navagation = useMemo<SideNavigationItem[]>(
         () => [
             { label: 'Dashboard', to: '/' },
             { label: 'Settings', to: '/settings' },
-            { label: 'Support', to: '/support' }
+            { label: 'Support', to: '/support' },
+            { label: 'Add Review', to: '/reviews/new' }
         ], [])
 
     return (
         <>
             {navagation.map((item, index) => (
-                <Button
-                    key={item.label + index}
-                    variant='ghost'
-                    className='justify-start'
-                    size='md'
-                    onClick={() => router.push(item.to)}
-                >
-                    {item.label}
-                </Button>
+                <Link key={item.label + index} href={item.to}>
+                    <Button
+                        variant='ghost'
+                        className='justify-start'
+                        size='md'
+                    >
+                        {item.label}
+                    </Button>
+                </Link>
             ))}
         </>
     )

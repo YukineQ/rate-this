@@ -23,13 +23,7 @@ type AppProviderProps = {
 }
 
 export const AppProvider = ({ children }: AppProviderProps) => {
-    const [queryClient] = React.useState(() => new QueryClient({
-        defaultOptions: {
-            queries: {
-                retry: 0
-            }
-        }
-    }));
+    const [queryClient] = React.useState(() => new QueryClient())
 
     return (
         <ErrorBoundary FallbackComponent={ErrorFallback}>
