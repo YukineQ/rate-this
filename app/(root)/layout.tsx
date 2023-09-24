@@ -2,16 +2,15 @@
 
 import { Button } from "@/components/Elements/Button"
 import React, { useMemo, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { LuCommand, LuMenu } from 'react-icons/lu'
-import { BiSearch } from 'react-icons/bi'
+import { BiLogOut, BiSearch } from 'react-icons/bi'
 import { Avatar } from "@/components/Elements/Avatar"
 import useUser from "@/lib/currentUser"
 import { Dialog, Menu, Transition } from "@headlessui/react"
 import { Spinner } from "@/components/Elements/Spinner"
 import { Link } from "@/components/Elements/Link"
-import { useTheme } from "next-themes"
 import { ToggleTheme } from "@/components/ToggleTheme"
+import { AiOutlinePlus } from "react-icons/ai"
 
 // TODO: refactor
 const Profile = () => {
@@ -62,12 +61,31 @@ const Profile = () => {
                     </div>
                     <div className="px-1">
                         <Menu.Item>
-                            <Button variant="ghost" size="sm" className="justify-start text-red-500">Logout</Button>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="justify-start text-red-500 border-2 border-red-500/30 bg-red-500/10 hover:bg-red-500/20"
+                                startIcon={<BiLogOut size={16} />}
+                            >
+                                Logout
+                            </Button>
                         </Menu.Item>
                     </div>
                 </Menu.Items>
             </Transition>
         </Menu>
+    )
+}
+
+const AddReview = () => {
+    return (
+        <div>
+            <Link href="/reviews/new">
+                <Button size='sm' startIcon={<AiOutlinePlus size={18} />}>
+                    Create review
+                </Button>
+            </Link>
+        </div>
     )
 }
 
@@ -105,11 +123,12 @@ const MobileNav = ({ navOpen, setNavOpen }: MobileNavProps) => {
                     leaveFrom="translate-x-0"
                     leaveTo="-translate-x-full"
                 >
-                    <Dialog.Panel className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white border-r shadow">
-                        <div className="mt-5 flex-1 h-0 overflow-y-auto">
-                            <nav className="px-2 space-y-1">
+                    <Dialog.Panel className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-primary border-r border-border shadow">
+                        <div className="mt-5 flex flex-col flex-1 overflow-y-auto">
+                            <div className="px-2 space-y-6">
                                 <NavItems />
-                            </nav>
+                                <AddReview />
+                            </div>
                         </div>
                     </Dialog.Panel>
                 </Transition.Child>
@@ -138,8 +157,11 @@ const Header = () => {
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
+                        <div className="md:flex hidden">
+                            <AddReview />
+                        </div>
                         <ToggleTheme />
-                        <Button startIcon={<BiSearch size={24} />} variant="ghost" size="icon" className="rounded-full" />
+                        <Button startIcon={<BiSearch size={24} />} variant="ghost" size="icon" />
                         <Profile />
                     </div>
                 </div>
@@ -154,18 +176,16 @@ type SideNavigationItem = {
 }
 
 const NavItems = () => {
-    const router = useRouter()
-    const navagation = useMemo<SideNavigationItem[]>(
+    const navigation = useMemo<SideNavigationItem[]>(
         () => [
             { label: 'Dashboard', to: '/' },
             { label: 'Settings', to: '/settings' },
             { label: 'Support', to: '/support' },
-            { label: 'Add Review', to: '/reviews/new' }
         ], [])
 
     return (
         <>
-            {navagation.map((item, index) => (
+            {navigation.map((item, index) => (
                 <Link key={item.label + index} href={item.to}>
                     <Button
                         variant='ghost'

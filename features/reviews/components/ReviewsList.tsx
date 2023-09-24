@@ -36,7 +36,7 @@ export const ReviewsList = () => {
                             hover:text-white 
                             bg-primary
                             transition-colors
-                            duration-300 
+                            duration-400 
                             cursor-default
                             group 
                         '

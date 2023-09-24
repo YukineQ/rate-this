@@ -31,7 +31,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
                 <ReactQueryDevtools />
                 <Toaster />
                 <SessionProvider>
-                    <ThemeProvider>
+                    <ThemeProvider disableTransitionOnChange>
                         {children}
                     </ThemeProvider>
                 </SessionProvider>
