@@ -1,0 +1,1 @@
+export const API_URL = process.env.NEXTAUTH_URL as string;
