@@ -7,12 +7,12 @@
         border 
         text-sm 
         shadow-sm 
-        shadow-slate-200 
         transition 
         placeholder:font-normal 
         text-black
         disabled:text-opacity-50
-        border-slate-200;
+        border-border
+        text-foreground
 }
 
 .tagify--focus {
@@ -21,4 +21,29 @@
 
 .tags-input {
     @apply p-0;
+}
+
+
+.custom_dropdown > div {
+    @apply 
+        inline-flex
+        w-full
+        flex-wrap
+        gap-2
+        p-2
+        mt-1 
+        overflow-auto 
+        rounded-md 
+        text-base 
+        ring-1 
+        focus:outline-none 
+        sm:text-sm border 
+        border-border
+        shadow-sm 
+        ring-border
+        bg-primary;
+}
+
+.tagify__dropdown__item {
+    @apply hover:bg-zinc-100 transition rounded text-black border border-muted shadow-sm bg-primary hover:bg-accent text-foreground;
 }

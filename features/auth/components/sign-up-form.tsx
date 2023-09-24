@@ -60,7 +60,7 @@ export const SignUpForm = ({ onSuccess }: SignUpProps) => {
                     </>
                 )}
             </Form>
-            <p className='inline-flex w-full justify-center text-sm text-gray-500 pt-2'>
+            <p className='inline-flex w-full justify-center text-sm text-muted-foreground pt-2'>
                 Already have an account?
                 <Link variant='underline' href='../sign-in' className='px-1'>
                     Sign in

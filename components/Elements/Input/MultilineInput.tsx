@@ -14,7 +14,7 @@ export const MultilineInput = React.forwardRef<HTMLTextAreaElement, MultilineInp
                     ref={ref}
                     rows={rows}
                     className={twMerge(
-                        'px-3 py-1 w-full rounded-md border text-sm shadow-sm shadow-slate-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-400 transition placeholder:font-normal',
+                        'px-3 py-1 w-full rounded-md border border-border bg-primary text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-400 transition placeholder:font-normal',
                         className
                     )}
                     {...props}

@@ -10,22 +10,27 @@ type Option = {
 
 type SelectProps = {
     options: Option[];
+    value: string | number;
+    onChage: any;
     defaultValue?: Option;
     placeholder?: string;
 } & InputWrapperPassThroughProps
 
 export const Select = (props: SelectProps) => {
-    const { options, defaultValue, label, description, error } = props
+    const { options, defaultValue, value, onChage, label, description, error } = props
 
-    const [selected, setSelected] = React.useState<Option>(defaultValue || options[0])
+    const getNameFromValue = (value: string | number) => {
+        const option = options.find((option) => option.value === value)
+        return option ? option.label : ''
+    }
 
     return (
         <InputWrapper label={label} description={description} error={error} isNative={false}>
-            <Listbox value={selected} onChange={setSelected}>
+            <Listbox value={value} onChange={onChage}>
                 <div className='relative mt-1 w-[200px]'>
                     <Listbox.Button className='w-full relative hover:bg-zinc-50 rounded-md transition cursor-pointer border shadow-sm shadow-slate-200'>
                         <div className='flex justify-between items-center px-4 py-2 h-[33px]'>
-                            <span className='text-sm font-medium'>{selected.label}</span>
+                            <span className='text-sm font-medium'>{getNameFromValue(value)}</span>
                             <div>
                                 <BsChevronUp size={8} />
                                 <BsChevronDown size={8} />
@@ -44,7 +49,7 @@ export const Select = (props: SelectProps) => {
                                     <Listbox.Option
                                         className="flex py-1 px-2.5 cursor-pointer rounded transition hover:bg-zinc-50"
                                         key={idx}
-                                        value={option}
+                                        value={option.value}
                                     >
                                         <div className='flex w-full py-[1px] gap-2.5 items-center'>
                                             <span className='text-sm'>

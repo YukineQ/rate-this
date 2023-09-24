@@ -22,7 +22,7 @@ export const InputWrapper = (props: InputWrapperProps) => {
                 <div className='my-1.5'>{children}</div>
             </Label>
             {description && (
-                <div role='contentinfo' aria-label={description} className='text-xs text-gray-500'>
+                <div role='contentinfo' aria-label={description} className='text-xs text-muted-foreground'>
                     {description}
                 </div>
             )}

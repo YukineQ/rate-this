@@ -1,15 +1,17 @@
 "use client"
 
 import { Button } from "@/components/Elements/Button"
-import React, { Fragment, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { LuCommand, LuMenu } from 'react-icons/lu'
 import { BiSearch } from 'react-icons/bi'
 import { Avatar } from "@/components/Elements/Avatar"
 import useUser from "@/lib/currentUser"
-import { SkeletonCircle, SkeletonLoader } from "@/components/Elements/Skeleton"
 import { Dialog, Menu, Transition } from "@headlessui/react"
 import { Spinner } from "@/components/Elements/Spinner"
+import { Link } from "@/components/Elements/Link"
+import { useTheme } from "next-themes"
+import { ToggleTheme } from "@/components/ToggleTheme"
 
 // TODO: refactor
 const Profile = () => {
@@ -33,35 +35,35 @@ const Profile = () => {
     }
 
     return (
-        <div className="relative inline-flex">
-            <Menu>
-                <Menu.Button>
-                    <Avatar url={userQuery.data.image ?? undefined} alt="Profile avatar." size="xs" />
-                </Menu.Button>
-                <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                >
-                    <Menu.Items className="absolute right-0 mt-2 border shadow rounded-md w-56 divide-y-1 py-1">
-                        <div className="px-1">
-                            <Menu.Item>
-                                <Button variant="ghost" size="sm" className="justify-start">Profile</Button>
-                            </Menu.Item>
-                        </div>
-                        <div className="px-1">
-                            <Menu.Item>
-                                <Button variant="ghost" size="sm" className="justify-start text-red-500">Logout</Button>
-                            </Menu.Item>
-                        </div>
-                    </Menu.Items>
-                </Transition>
-            </Menu>
-        </div>
+        <Menu as='div' className='relative pt-1'>
+            <Menu.Button>
+                <Avatar url={userQuery.data.image ?? undefined} alt="Profile avatar." size="xs" />
+            </Menu.Button>
+            <Transition
+                as={React.Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+            >
+                <Menu.Items className="absolute right-0 mt-2 border border-border shadow rounded-md w-56 divide-y-1 py-1 bg-primary">
+                    <div className="px-1">
+                        <Menu.Item>
+                            <Link href="/me/reviews">
+                                <Button variant="ghost" size="sm" className="justify-start">Reviews</Button>
+                            </Link>
+                        </Menu.Item>
+                    </div>
+                    <div className="px-1">
+                        <Menu.Item>
+                            <Button variant="ghost" size="sm" className="justify-start text-red-500">Logout</Button>
+                        </Menu.Item>
+                    </div>
+                </Menu.Items>
+            </Transition>
+        </Menu>
     )
 }
 
@@ -116,13 +118,13 @@ const Header = () => {
     const [navOpen, setNavOpen] = useState(false)
 
     return (
-        <nav className="fixed w-full shadow-sm z-30 bg-white">
+        <nav className="fixed w-full border-b border-border z-30 bg-primary">
             <div className='mx-auto max-w-6xl'>
                 <div className='flex items-center justify-between h-11 md:px-4 px-2'>
                     <div className='h-full flex items-center gap-8'>
                         <div className="flex h-full items-center gap-2">
                             <Button className="flex md:hidden" variant="ghost" startIcon={<LuMenu size={26} />} size="icon" onClick={() => setNavOpen(true)} />
-                            <div className='inline-flex items-center justify-center bg-black text-white h-full px-2.5'>
+                            <div className='inline-flex items-center justify-center bg-foreground text-primary h-full px-2.5'>
                                 <LuCommand size={26} />
                             </div>
                         </div>
@@ -132,6 +134,7 @@ const Header = () => {
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
+                        <ToggleTheme />
                         <Button startIcon={<BiSearch size={24} />} variant="ghost" size="icon" className="rounded-full" />
                         <Profile />
                     </div>
@@ -147,6 +150,7 @@ type SideNavigationItem = {
 }
 
 const NavItems = () => {
+    const {theme, setTheme} = useTheme()
     const router = useRouter()
     const navagation = useMemo<SideNavigationItem[]>(
         () => [
@@ -167,8 +171,7 @@ const NavItems = () => {
                 >
                     {item.label}
                 </Button>
-            ))
-            }
+            ))}
         </>
     )
 }
@@ -179,9 +182,9 @@ export default function MainLayout({
     children: React.ReactNode
 }) {
     return (
-        <div className="h-full flex flex-col">
+        <div className="min-h-full flex flex-col bg-primary">
             <Header />
-            <main className="container max-w-6xl mx-auto md:py-10 px-4 mt-2 flex-1">
+            <main className="container max-w-6xl mx-auto md:py-10 px-4 md:mt-4 mt-14 flex-1">
                 {children}
             </main>
         </div>

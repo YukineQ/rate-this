@@ -5,7 +5,6 @@ import {
     MDXEditorMethods,
     MDXEditorProps as BaseProps,
     UndoRedo,
-    frontmatterPlugin,
     headingsPlugin,
     thematicBreakPlugin,
     toolbarPlugin,
@@ -14,12 +13,9 @@ import {
     linkPlugin,
     CreateLink,
     tablePlugin,
-    InsertTable,
     codeBlockPlugin,
     InsertCodeBlock,
     quotePlugin,
-    InsertFrontmatter,
-    ToolbarToggleItem,
     linkDialogPlugin,
     codeMirrorPlugin,
 } from "@mdxeditor/editor"
@@ -32,10 +28,18 @@ type MDXEditorProps = BaseProps & InputWrapperPassThroughProps
 
 export const MDXEditor: FC<MDXEditorProps> = ({ label, description, error, ...props }) => {
     const ref = useRef<MDXEditorMethods>(null)
+
+    const focusOnEditor = () => {
+        if (ref.current) {
+            ref.current.focus()
+        }
+    }
+
     return (
         <InputWrapper label={label} description={description} error={error} isNative={false}>
-            <div className="shadow-sm shadow-slate-200 rounded-md border min-h-[200px] focus-within:ring-1 ring-slate-400" onClick={() => ref.current?.focus()} onFocus={() => ref.current?.focus()}>
+            <div className="shadow-sm rounded-md border border-border min-h-[200px] focus-within:ring-1 ring-slate-400" onClick={focusOnEditor}>
                 <Editor
+                    className="dark-theme dark-editor"
                     ref={ref}
                     plugins={
                         [

@@ -1,11 +1,12 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge';
+import { Spinner } from '../Spinner';
 
 const variants = {
-    default: 'bg-zinc-950 text-white hover:bg-zinc-800 shadow',
-    danger: 'bg-red-500 text-white hover:bg-red-500/90 shadow-sm',
-    outline: 'border bg-white shadow-sm hover:bg-zinc-50',
-    ghost: 'hover:bg-zinc-50 text-zinc-700',
+    default: 'bg-button hover:bg-button/90 shadow',
+    danger: 'bg-red-500 hover:bg-red-500/90 shadow-sm',
+    outline: 'border border-muted shadow-sm bg-primary hover:bg-accent text-foreground',
+    ghost: 'hover:bg-primary-foreground text-ghost',
 }
 
 const sizes = {
@@ -45,7 +46,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 ref={ref}
                 type={type}
                 className={twMerge(
-                    'inline-flex w-full justify-center items-center font-medium transition rounded-md text-sm disabled:opacity-70 disabled:pointer-events-none whitespace-nowrap',
+                    'inline-flex w-full justify-center items-center font-medium transition rounded-md text-sm disabled:opacity-70 disabled:pointer-events-none whitespace-nowrap text-primary-foreground',
                     sizes[size],
                     variants[variant],
                     className
@@ -53,7 +54,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 {...props}
             >
                 <div>
-                    {isLoading && ""}
+                    {isLoading && <Spinner size='xs' />}
                     {!isLoading && startIcon}
                 </div>
                 {size != 'icon' && (

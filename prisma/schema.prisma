@@ -6,8 +6,10 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+    relationMode = "prisma"
+
 }
 
 model Account {
@@ -40,17 +42,19 @@ model Session {
 }
 
 model User {
-  id             String    @id @default(cuid())
+  id             String     @id @default(cuid())
   name           String
-  email          String    @unique
+  email          String     @unique
   emailVerified  DateTime?
   image          String?
   bio            String?
   hashedPassword String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
   accounts       Account[]
   sessions       Session[]
+  comments       Comment[]
+  Reaction       Reaction[]
 }
 
 model VerificationToken {
@@ -73,11 +77,13 @@ model Review {
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
 
-  tags ReviewTags[]
-  images Image[]
+  tags    ReviewTags[]
+  images  Image[]
+  comment Comment[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Reaction  Reaction[]
 
   @@index([categoryId])
 }
@@ -87,7 +93,7 @@ model Image {
   url String
 
   reviewId String
-  review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -105,7 +111,7 @@ model ReviewTags {
   reviewId String
   tagId    String
   review   Review @relation(fields: [reviewId], references: [id])
-  Tag      Tag    @relation(fields: [tagId], references: [id])
+  tag      Tag    @relation(fields: [tagId], references: [id])
 
   @@id([reviewId, tagId])
 }
@@ -114,4 +120,27 @@ model Tag {
   id      String       @id @default(cuid())
   name    String       @unique
   reviews ReviewTags[]
+
+  @@index([name])
+}
+
+model Comment {
+  id       String @id @default(cuid())
+  text     String
+  userId   String
+  reviewId String
+  user     User   @relation(fields: [userId], references: [id])
+  review   Review @relation(fields: [reviewId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Reaction {
+  userId   String
+  reviewId String
+  user     User   @relation(fields: [userId], references: [id])
+  review   Review @relation(fields: [reviewId], references: [id])
+
+  @@id([userId, reviewId])
 }

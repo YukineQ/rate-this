@@ -37,8 +37,9 @@ export const SignInForm = ({ onSuccess }: SignInProps) => {
                         if (res?.status === 200) {
                             onSuccess()
                             toast.success("Succesfully sign in.")
+                        } else {
+                            toast.error(res?.error || "Error occure.")
                         }
-                        toast.error(res?.error || "Error occure.")
                     })
                 }}
             >
@@ -62,7 +63,7 @@ export const SignInForm = ({ onSuccess }: SignInProps) => {
                     </>
                 )}
             </Form>
-            <p className='inline-flex w-full justify-center text-sm text-gray-500 pt-2'>
+            <p className='inline-flex w-full justify-center text-sm text-muted-foreground pt-2'>
                 Create new account?
                 <Link variant='underline' href='../sign-up' className='px-1'>
                     Sign up

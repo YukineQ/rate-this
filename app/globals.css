@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --primary: 0 0% 100%;
+    --border: 240 5.9% 90%;
+    --foreground: 240 10% 3.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --ghost: 240 5% 26%;
+    --card-hover: 240 10% 3.9%;
+    --button: 240 10% 3.9%;
+    --primary-foreground: 0 0% 98%;
+    --muted: 240 4.8% 95.9%;
+    --accent: 240 4.8% 98.9%;
+}
+
+[data-theme="dark"] {
+    --primary: 240 10% 3.9%;
+    --border: 240 3.7% 15.9%;
+    --foreground: 0 0% 98%;
+    --muted-foreground: 240 5% 64.9%;
+    --ghost: 0 0% 98%;
+    --card-hover: 240 10% 7.5%;
+    --button: 0 0% 100%;
+    --primary-foreground: 240 5.9% 10%;
+    --muted: 240 3.7% 15.9%;
+    --accent: 240 3.7% 15.9%;
+}
+
 html,
 body,
 :root {

@@ -1,3 +1,5 @@
+'use client'
+
 import { AppProvider } from '@/providers'
 import './globals.css'
 

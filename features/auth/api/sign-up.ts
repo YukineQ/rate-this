@@ -23,6 +23,7 @@ export const useSignUp = () => {
             toast.success('Account created.')
         },
         onError: (error: AxiosError) => {
+            console.log(error)
             const message = error.response?.data || error.message
             toast.error(String(message))
         },

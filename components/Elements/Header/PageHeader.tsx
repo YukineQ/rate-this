@@ -25,7 +25,7 @@ function PageHeaderHeading({
     return (
         <h1
             className={twMerge(
-                "text-xl font-semibold leading-tight tracking-tighter md:text-2xl lg:leading-[1.1]",
+                "text-xl font-semibold leading-tight tracking-tighter md:text-2xl lg:leading-[1.1] text-foreground",
                 className
             )}
             {...props}
@@ -40,7 +40,7 @@ function PageHeaderDescription({
     return (
         <p
             className={twMerge(
-                "text-sm text-gray-500 sm:text-base",
+                "text-sm text-muted-foreground sm:text-base",
                 className
             )}
             {...props}

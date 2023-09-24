@@ -15,7 +15,7 @@ type LinkProps = {
 
 export const Link = ({ href, children, className, variant = 'default' }: LinkProps) => {
     return (
-        <NextLink href={href} className={twMerge('text-gray-500 hover:text-gray-700 transition', className, variants[variant])}>
+        <NextLink href={href} className={twMerge('text-muted-foreground hover:text-muted-foreground/80 transition', className, variants[variant])}>
             {children}
         </NextLink>
     )

@@ -18,7 +18,7 @@ const variants = {
 }
 
 type AvatarProps = {
-    url?: string;
+    url?: string | null;
     alt?: string;
     className?: string;
     variant?: keyof typeof variants;
@@ -43,7 +43,7 @@ export const Avatar = ({
             )}
         >
             <Image
-                src={srcToRender}
+                src={srcToRender ?? FALLBACK_AVATAR_URL}
                 alt={alt}
                 width={0}
                 height={0}

@@ -25,9 +25,10 @@ const schema = yup.object({
     title: yup.string().min(10).required(),
     creation: yup.string().required(),
     content: yup.string().min(100).required(),
-    rate: yup.number().max(10).min(1).required(),
-    images: yup.array(),
-    tags: yup.array().required(),
+    rate: yup.number().max(10).min(1),
+    category: yup.string().required(),
+    images: yup.array().of(yup.object({ url: yup.string() })),
+    tags: yup.string(),
 })
 
 type ReviewData = {
@@ -35,8 +36,9 @@ type ReviewData = {
     content: string;
     creation: string;
     rate: string;
-    images: string[];
-    tags: string[];
+    category: string;
+    images: { url: string }[];
+    tags: string;
 }
 
 const createReview = (data: ReviewData): Promise<Review> => {
@@ -67,12 +69,10 @@ export default function NewReview() {
                 <Form<ReviewData, typeof schema>
                     schema={schema}
                     onSubmit={(values) => {
-                        console.log(values)
                         createReview.mutate(values)
                     }}
                     initialData={{
                         images: [],
-                        tags: [],
                     }}
                 >
                     {({ register, formState, control }) => (
@@ -119,13 +119,22 @@ export default function NewReview() {
                                     )}
                                 />
                                 {categoriesQuery.data && (
-                                    <Select
-                                        label='Category'
-                                        description='Select category of reviewed creation.'
-                                        options={categoriesQuery.data.map((category) => ({
-                                            label: category.name,
-                                            value: category.id,
-                                        }))}
+                                    <Controller
+                                        control={control}
+                                        name='category'
+                                        render={({ field }) => (
+                                            <Select
+                                                value={field.value}
+                                                onChage={field.onChange}
+                                                label='Category'
+                                                description='Select category of reviewed creation.'
+                                                error={formState.errors.category}
+                                                options={categoriesQuery.data.map((category) => ({
+                                                    label: category.name,
+                                                    value: category.id,
+                                                }))}
+                                            />
+                                        )}
                                     />
                                 )}
                             </div>
@@ -136,7 +145,8 @@ export default function NewReview() {
                                     <Tags
                                         label='Tags'
                                         description='Tags helps to filter your review more clearly.'
-                                        onAdd={(e) => field.onChange(e.detail.tagify.value)}
+                                        onChange={(e) => field.onChange(e.detail.value)}
+                                        whitelist={['test', 'test2', 'test3']}
                                     />
                                 )}
                             />
@@ -146,24 +156,25 @@ export default function NewReview() {
                                 render={({ field }) => (
                                     <div>
                                         <div className='flex items-center gap-4 flex-wrap pb-4'>
-                                            {field.value.map((url) => (
-                                                <Image key={url} src={url} alt='Uploaded image.'>
+                                            {field.value.map(image => (
+                                                <Image key={image.url} src={image.url} alt='Uploaded image.'>
                                                     <div className='z-10 absolute top-2 right-2'>
                                                         <Button
                                                             onClick={() => field.onChange(
-                                                                field.value.filter(o => o !== url)
+                                                                field.value.filter(o => o.url !== image.url)
                                                             )}
                                                             variant='danger'
                                                             size='icon'
                                                             startIcon={<FaTrashCan size={18} />}
+                                                            className='hover:bg-red-600'
                                                         />
                                                     </div>
                                                 </Image>
                                             ))}
                                         </div>
                                         <ImageUpload
-                                            value={field.value.map((url) => url)}
-                                            onChange={(url) => field.onChange(field.value.concat(url))}
+                                            value={field.value.map((image) => image.url)}
+                                            onChange={(url) => field.onChange([...field.value, { url }])}
                                         />
                                     </div>
                                 )}

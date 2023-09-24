@@ -32,7 +32,6 @@ export async function PATCH(
         if (!email) {
             return new NextResponse("Emailis required.", { status: 400 })
         }
-        //TODO: email
 
         const user = await prismadb.user.update({
             where: {
