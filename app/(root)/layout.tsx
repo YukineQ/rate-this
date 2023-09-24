@@ -28,8 +28,12 @@ const Profile = () => {
     if (!userQuery.data) {
         return (
             <div className="flex gap-2">
-                <Button size="sm">Sign in</Button>
-                <Button size="sm" variant="outline">Sign up</Button>
+                <Link href="/sign-in">
+                    <Button size="sm">Sign in</Button>
+                </Link>
+                <Link href="/sign-up">
+                    <Button size="sm" variant="outline">Sign up</Button>
+                </Link>
             </div>
         )
     }
@@ -150,7 +154,7 @@ type SideNavigationItem = {
 }
 
 const NavItems = () => {
-    const {theme, setTheme} = useTheme()
+    const { theme, setTheme } = useTheme()
     const router = useRouter()
     const navagation = useMemo<SideNavigationItem[]>(
         () => [

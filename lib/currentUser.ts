@@ -8,7 +8,6 @@ const useUser = () => {
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
-        retry: 0,
     })
 }
 
