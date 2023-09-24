@@ -18,5 +18,6 @@ export const useReviews = (userId?: string) => {
     return useQuery({
         queryKey: ['reviews', userId],
         queryFn: () => getReviews(userId),
+        retry: 0,
     })
 }
