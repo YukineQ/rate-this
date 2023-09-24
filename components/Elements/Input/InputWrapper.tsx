@@ -7,20 +7,22 @@ type InputWrapperProps = {
     children: React.ReactNode;
     description?: string;
     error?: FieldError | undefined;
+    isNative?: boolean;
 }
 
 export type InputWrapperPassThroughProps = Omit<InputWrapperProps, 'className' | 'children'>
 
 export const InputWrapper = (props: InputWrapperProps) => {
-    const { label, className, children, description, error } = props
+    const { label, className, children, description, error, isNative = true } = props
+    const Label = isNative ? `label` : `div`
     return (
         <div>
-            <label className={twMerge('block text-sm font-medium leading-none', className)}>
+            <Label className={twMerge('block text-sm font-medium leading-none', className)}>
                 {label}
-                <div className='my-1'>{children}</div>
-            </label>
+                <div className='my-1.5'>{children}</div>
+            </Label>
             {description && (
-                <div role='contentinfo' aria-label={description} className='text-xs text-gray-500'>
+                <div role='contentinfo' aria-label={description} className='text-xs text-muted-foreground'>
                     {description}
                 </div>
             )}

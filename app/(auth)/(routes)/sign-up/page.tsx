@@ -1,61 +1,11 @@
 "use client"
 
-import { Button } from '@/components/Elements/Button';
-import { Form } from '@/components/Form';
-import { Input } from '@/components/Elements/Input';
-import * as yup from 'yup'
-import { Link } from '@/components/Elements/Link';
+import { useRouter } from 'next/navigation'
 
-const schema = yup.object({
-    username: yup.string().min(3).required(),
-    email: yup.string().email().required(),
-    password: yup.string().min(6),
-})
+import { SignUpForm } from '@/features/auth/components';
 
-type SignUpValues = {
-    username: string;
-    email: string;
-    password: string;
-}
+export default function SignUpPage() {
+    const router = useRouter()
 
-export default function SignUp() {
-    return (
-        <div>
-            <Form<SignUpValues, typeof schema>
-                onSubmit={() => { }}
-                schema={schema}
-            >
-                {({ register, formState }) => (
-                    <>
-                        <Input
-                            placeholder='example'
-                            {...register('username')}
-                            error={formState.errors['username']}
-                        />
-                        <Input
-                            type='email'
-                            placeholder='name@example.com'
-                            {...register('email')}
-                            error={formState.errors['email']}
-                        />
-                        <Input
-                            type='password'
-                            placeholder='●●●●●●●●●●●●'
-                            {...register('password')}
-                            error={formState.errors['password']}
-                        />
-                        <div className='pt-2'>
-                            <Button type='submit' className='w-full'>Sign up</Button>
-                        </div>
-                    </>
-                )}
-            </Form>
-            <p className='text-sm text-gray-500 text-center pt-2'>
-                Already have an account?
-                <Link href='../sign-in' className='pl-1'>
-                    Sign in
-                </Link>
-            </p>
-        </div>
-    )
+    return <SignUpForm onSuccess={() => { router.push('/sign-in') }} />
 }
