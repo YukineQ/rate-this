@@ -10,12 +10,12 @@ export const SocialAuthButtons = () => {
         {
             label: "Google",
             startIcon: <FcGoogle size={20} />,
-            onClick: () => signIn('google')
+            onClick: () => signIn('google', { callbackUrl: '/' })
         },
         {
             label: "Github",
             startIcon: <AiOutlineGithub size={20} />,
-            onClick: () => signIn('github')
+            onClick: () => signIn('github', { callbackUrl: '/' })
         },
     ], [])
 
