@@ -17,10 +17,11 @@ import * as yup from 'yup'
 import Tags from '@/components/Tags/Tags'
 import { useCategories } from '@/features/caregories'
 import { Review } from '@prisma/client'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useMutation } from '@tanstack/react-query'
 import { useTags } from '@/features/tags'
 import { useRouter } from 'next/navigation'
+import { toast } from 'react-hot-toast'
 
 
 const schema = yup.object({
@@ -49,7 +50,15 @@ const createReview = (data: ReviewData): Promise<Review> => {
 
 const useCreateReview = () => {
     return useMutation({
-        mutationFn: createReview
+        mutationFn: createReview,
+        onSuccess: () => {
+            toast.success('Review created.')
+        },
+        onError: (error: AxiosError) => {
+            console.log(error)
+            const message = error.response?.data || error.message
+            toast.error(String(message))
+        },
     })
 }
 
