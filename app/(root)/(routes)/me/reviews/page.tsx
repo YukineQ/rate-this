@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/Elements/Button";
 import { PageHeader, PageHeaderDescription, PageHeaderHeading } from "@/components/Elements/Header";
+import { Link } from "@/components/Elements/Link";
 import { Separator } from "@/components/Elements/Separator";
 import { Table } from "@/components/Elements/Table";
 import { useReviews } from "@/features/reviews/api/getReviews";
@@ -52,13 +53,13 @@ export default function CurrentUserReviesPage() {
                         {
                             header: '',
                             accessorKey: 'id',
-                            cell: (id) => <Button variant='outline' size='sm' onClick={() => console.log(id.getValue())}>Preview</Button>,
+                            cell: (id) => <Link href={`/reviews/${id.getValue()}`}><Button variant='outline' size='sm'>Preview</Button></Link>,
                             enableSorting: false,
                         },
                         {
                             header: '',
                             accessorKey: 'id',
-                            cell: (id) => <div className="space-x-2"><Button size='icon' variant='ghost' startIcon={<LuTrash2 className='text-red-500' size={16} />} onClick={() => console.log(id.getValue())} /><Button size='icon' variant='ghost' startIcon={<LuSlice size={16}/>} onClick={() => console.log(id.getValue())} /></div>,
+                            cell: (id) => <div className="space-x-2"><Button size='icon' variant='ghost' startIcon={<LuTrash2 className='text-red-500' size={16} />} onClick={() => console.log(id.getValue())} /><Button size='icon' variant='ghost' startIcon={<LuSlice size={16} />} onClick={() => console.log(id.getValue())} /></div>,
                             enableSorting: false,
                         },
                     ]}

@@ -14,9 +14,10 @@ export async function GET(
                 images: true,
                 tags: { include: { tag: true } },
                 category: true,
+                user: { select: { email: true } }
             }
         })
-
+        console.log(review)
         return NextResponse.json(review)
     } catch (error) {
         console.log('[REVIEWS:REVIEW_ID:GET]', error)

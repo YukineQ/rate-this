@@ -15,7 +15,7 @@ export const ReviewsList = () => {
 
     if (!reviewsQuery.data) {
         return (
-            <div className='flex flex-1 h-full justify-center items-center'>
+            <div className='flex h-full justify-center items-center'>
                 <Spinner size='md' />
             </div>
         )

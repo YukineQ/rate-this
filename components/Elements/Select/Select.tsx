@@ -28,7 +28,7 @@ export const Select = (props: SelectProps) => {
         <InputWrapper label={label} description={description} error={error} isNative={false}>
             <Listbox value={value} onChange={onChage}>
                 <div className='relative mt-1 w-[200px]'>
-                    <Listbox.Button className='w-full relative hover:bg-zinc-50 rounded-md transition cursor-pointer border shadow-sm shadow-slate-200'>
+                    <Listbox.Button className='w-full relative hover:bg-zinc-50 rounded-md transition cursor-pointer border border-border shadow-sm'>
                         <div className='flex justify-between items-center px-4 py-2 h-[33px]'>
                             <span className='text-sm font-medium'>{getNameFromValue(value)}</span>
                             <div>

@@ -55,6 +55,7 @@ model User {
   sessions Session[]
   comments Comment[]
   reaction Reaction[]
+  reviews  Review[]
 }
 
 model VerificationToken {
@@ -68,7 +69,6 @@ model VerificationToken {
 
 model Review {
   id       String @id @default(cuid())
-  userId   String
   title    String
   creation String
   content  String
@@ -77,13 +77,16 @@ model Review {
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
 
-  tags    ReviewTags[]
-  images  Image[]
-  comment Comment[]
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  reaction  Reaction[]
+  tags     ReviewTags[]
+  images   Image[]
+  comment  Comment[]
+  reaction Reaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([categoryId])
 }

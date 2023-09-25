@@ -19,6 +19,8 @@ import { useCategories } from '@/features/caregories'
 import { Review } from '@prisma/client'
 import axios from 'axios'
 import { useMutation } from '@tanstack/react-query'
+import { useTags } from '@/features/tags'
+import { useRouter } from 'next/navigation'
 
 
 const schema = yup.object({
@@ -55,6 +57,8 @@ export default function NewReview() {
     const rate = Array.from({ length: 10 }, (_, i) => i + 1)
     const categoriesQuery = useCategories()
     const createReview = useCreateReview()
+    const tagsQuery = useTags()
+    const router = useRouter()
 
     return (
         <>
@@ -68,8 +72,9 @@ export default function NewReview() {
             <div className="pt-4">
                 <Form<ReviewData, typeof schema>
                     schema={schema}
-                    onSubmit={(values) => {
-                        createReview.mutate(values)
+                    onSubmit={async (values) => {
+                        const newReview = await createReview.mutateAsync(values)
+                        router.push(`/reviews/${newReview.id}`)
                     }}
                     initialData={{
                         images: [],
@@ -82,12 +87,14 @@ export default function NewReview() {
                                 label='Title'
                                 description='This is review display title.'
                                 error={formState.errors.title}
+                                disabled={createReview.isLoading}
                             />
                             <Input
                                 {...register('creation')}
                                 label='Creation'
                                 description='Title of the work being reviewed.'
                                 error={formState.errors.creation}
+                                disabled={createReview.isLoading}
                             />
                             <Controller
                                 control={control}
@@ -146,7 +153,7 @@ export default function NewReview() {
                                         label='Tags'
                                         description='Tags helps to filter your review more clearly.'
                                         onChange={(e) => field.onChange(e.detail.value)}
-                                        whitelist={['test', 'test2', 'test3']}
+                                        whitelist={tagsQuery.data && tagsQuery.data.map((tag) => tag.name)}
                                     />
                                 )}
                             />
@@ -175,11 +182,12 @@ export default function NewReview() {
                                         <ImageUpload
                                             value={field.value.map((image) => image.url)}
                                             onChange={(url) => field.onChange([...field.value, { url }])}
+                                            disabled={createReview.isLoading}
                                         />
                                     </div>
                                 )}
                             />
-                            <Button type='submit'>Get disappointed in your life</Button>
+                            <Button type='submit' isLoading={createReview.isLoading}>Get disappointed in your life</Button>
                         </div>
                     )}
                 </Form>

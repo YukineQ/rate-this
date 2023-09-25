@@ -3,25 +3,23 @@
 import { Button } from "@/components/Elements/Button"
 import { CopyToClipboard } from "@/components/Elements/CopyToClipboard"
 import { PageHeader, PageHeaderDescription, PageHeaderHeading } from "@/components/Elements/Header"
-import { MultilineInput } from "@/components/Elements/Input"
 import { Separator } from "@/components/Elements/Separator"
 import { Spinner } from "@/components/Elements/Spinner"
 import { MDPreview } from "@/components/MDXEditor/MDPreview"
 import { Comments } from "@/features/comments/components/comments"
-import CommentsList from "@/features/comments/components/comments-list"
-import { CreateComment } from "@/features/comments/components/create-comment"
 import ToggleReaction from "@/features/reactions/components/toggle-reaction"
 import { axios } from "@/lib/axios"
+import { formatDate } from "@/utils/format"
 import { Category, Image, Review, ReviewTags, Tag } from "@prisma/client"
-import { useQueries, useQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { toast } from "react-hot-toast"
-import { AiOutlineHeart } from "react-icons/ai"
 import { BsLink45Deg } from 'react-icons/bs'
 
 type ReviewResponse = {
     category: Category;
     images: Image[];
     tags: (ReviewTags & { tag: Tag })[];
+    user: { email: string }
 } & Review
 
 const getReview = ({ reviewId }: { reviewId: string }): Promise<ReviewResponse> => {
@@ -96,7 +94,7 @@ export default function ReviewIdPage({
             </div>
             <Separator />
             <div className="flex justify-between items-center">
-                <p className="text-muted-foreground">By mayberainq@gmail.com</p>
+                <p className="text-muted-foreground">By {reviewQuery.data.user.email} <span className="text-xs ml-4">{formatDate(reviewQuery.data.updatedAt)}</span></p>
                 <CopyToClipboard
                     textToCopy={window.location.href}
                     onCopy={() => toast.success('Link copied.')}

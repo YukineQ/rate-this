@@ -6,13 +6,13 @@ export default function ReviewsPage() {
     return (
         <>
             <PageHeader>
-                <PageHeaderHeading>New Review</PageHeaderHeading>
+                <PageHeaderHeading>Dashboard</PageHeaderHeading>
                 <PageHeaderDescription>
-                    Here you can write your opinion about some kind of creation.
+                    Here you can find resent reviews.
                 </PageHeaderDescription>
             </PageHeader>
             <Separator />
-            <div className="pt-4">
+            <div className="pt-4 h-full">
                 <ReviewsList />
             </div>
         </>

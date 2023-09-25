@@ -41,21 +41,24 @@ export const SignUpForm = ({ onSuccess }: SignUpProps) => {
                             placeholder='example'
                             {...register('name')}
                             error={formState.errors['name']}
+                            disabled={signUp.isLoading}
                         />
                         <Input
                             type='email'
                             placeholder='name@example.com'
                             {...register('email')}
                             error={formState.errors['email']}
+                            disabled={signUp.isLoading}
                         />
                         <Input
                             type='password'
                             placeholder='●●●●●●●●●●●●'
                             {...register('password')}
                             error={formState.errors['password']}
+                            disabled={signUp.isLoading}
                         />
                         <div className='pt-2'>
-                            <Button type='submit'>Sign up</Button>
+                            <Button type='submit' isLoading={signUp.isLoading}>Sign up</Button>
                         </div>
                     </>
                 )}
