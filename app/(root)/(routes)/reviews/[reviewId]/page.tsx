@@ -7,6 +7,7 @@ import { MultilineInput } from "@/components/Elements/Input"
 import { Separator } from "@/components/Elements/Separator"
 import { Spinner } from "@/components/Elements/Spinner"
 import { MDPreview } from "@/components/MDXEditor/MDPreview"
+import { Comments } from "@/features/comments/components/comments"
 import CommentsList from "@/features/comments/components/comments-list"
 import { CreateComment } from "@/features/comments/components/create-comment"
 import ToggleReaction from "@/features/reactions/components/toggle-reaction"
@@ -40,7 +41,7 @@ export default function ReviewIdPage({
     params: { reviewId: string }
 }) {
     const reviewQuery = useReview({ reviewId: params.reviewId })
-    
+
     if (reviewQuery.isLoading) {
         return (
             <div className="flex h-full items-center justify-center">
@@ -114,11 +115,10 @@ export default function ReviewIdPage({
             <div className="py-4">
                 <MDPreview value={reviewQuery.data.content} />
             </div>
-            <ToggleReaction />
+            <ToggleReaction reviewId={params.reviewId} />
             <Separator />
             <div className="py-6">
-                <CreateComment reviewId={params.reviewId} />
-                <CommentsList reviewId={params.reviewId} />
+                <Comments reviewId={params.reviewId} />
             </div>
         </div>
     )

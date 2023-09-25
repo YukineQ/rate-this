@@ -11,10 +11,12 @@ import { Spinner } from "@/components/Elements/Spinner"
 import { Link } from "@/components/Elements/Link"
 import { ToggleTheme } from "@/components/ToggleTheme"
 import { AiOutlinePlus } from "react-icons/ai"
+import { useLogout } from "@/features/auth/api/logout"
 
 // TODO: refactor
 const Profile = () => {
     const userQuery = useUser()
+    const logoutMutation = useLogout()
 
     if (userQuery.isLoading) {
         return (
@@ -66,6 +68,8 @@ const Profile = () => {
                                 size="sm"
                                 className="justify-start text-red-500 border-2 border-red-500/30 bg-red-500/10 hover:bg-red-500/20"
                                 startIcon={<BiLogOut size={16} />}
+                                isLoading={logoutMutation.isLoading}
+                                onClick={() => logoutMutation.mutateAsync()}
                             >
                                 Logout
                             </Button>
@@ -176,12 +180,12 @@ type SideNavigationItem = {
 }
 
 const NavItems = () => {
-    const navigation = useMemo<SideNavigationItem[]>(
+    const navigation = useMemo(
         () => [
             { label: 'Dashboard', to: '/' },
             { label: 'Settings', to: '/settings' },
             { label: 'Support', to: '/support' },
-        ], [])
+        ] as SideNavigationItem[], [])
 
     return (
         <>

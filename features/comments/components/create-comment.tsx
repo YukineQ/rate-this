@@ -21,13 +21,9 @@ export const CreateComment = ({ reviewId }: CreateCommentProps) => {
     if (!userQuery.data?.id) {
         return null
     }
-    //TODO: move to commetns
+
     return (
-        <>
-            <h3 className="text-xl font-semibold tracking-tight md:text-2xl">
-                Discussion (20)
-            </h3>
-            <div className="
+        <div className="
                 relative
                 my-4
                 rounded-md
@@ -40,37 +36,36 @@ export const CreateComment = ({ reviewId }: CreateCommentProps) => {
                 focus-visible:ring-slate-400
                 pb-10
             ">
-                <Form<CreateCommentDTO['data'], typeof schema>
-                    onSubmit={async (values) => {
-                        await createCommentMutation.mutateAsync({
-                            data: {
-                                text: values.text,
-                                reviewId,
-                            }
-                        })
-                    }}
-                    schema={schema}
-                    resetOnSuccess
-                >
-                    {({ register }) => (
-                        <>
-                            <MultilineInput
-                                placeholder='Write a comment...'
-                                rows={3}
-                                className="resize-none border-none shadow-none bg-transparent focus-visible:ring-0 placeholder:text-muted-foreground"
-                                {...register('text')}
-                            />
-                            <Button
-                                type='submit'
-                                className='absolute w-fit right-1 bottom-1'
-                                isLoading={createCommentMutation.isLoading}
-                            >
-                                Post comment
-                            </Button>
-                        </>
-                    )}
-                </Form>
-            </div>
-        </>
+            <Form<CreateCommentDTO['data'], typeof schema>
+                onSubmit={async (values) => {
+                    await createCommentMutation.mutateAsync({
+                        data: {
+                            text: values.text,
+                            reviewId,
+                        }
+                    })
+                }}
+                schema={schema}
+                resetOnSuccess
+            >
+                {({ register }) => (
+                    <>
+                        <MultilineInput
+                            placeholder='Write a comment...'
+                            rows={3}
+                            className="resize-none border-none shadow-none bg-transparent focus-visible:ring-0 placeholder:text-muted-foreground"
+                            {...register('text')}
+                        />
+                        <Button
+                            type='submit'
+                            className='absolute w-fit right-1 bottom-1'
+                            isLoading={createCommentMutation.isLoading}
+                        >
+                            Post comment
+                        </Button>
+                    </>
+                )}
+            </Form>
+        </div>
     )
 }

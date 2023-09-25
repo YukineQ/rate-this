@@ -2,8 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider     = "sqlite"
-  url          = "file:./dev.db"
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 generator client {
@@ -40,19 +40,21 @@ model Session {
 }
 
 model User {
-  id             String     @id @default(cuid())
+  id             String    @id @default(cuid())
   name           String
-  email          String     @unique
+  email          String    @unique
   emailVerified  DateTime?
   image          String?
   bio            String?
   hashedPassword String?
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
-  accounts       Account[]
-  sessions       Session[]
-  comments       Comment[]
-  Reaction       Reaction[]
+  isAdmin        Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  accounts Account[]
+  sessions Session[]
+  comments Comment[]
+  reaction Reaction[]
 }
 
 model VerificationToken {
@@ -81,7 +83,7 @@ model Review {
 
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  Reaction  Reaction[]
+  reaction  Reaction[]
 
   @@index([categoryId])
 }
